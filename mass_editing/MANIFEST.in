@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include mass_editing *.css
+recursive-include mass_editing *.csv
+recursive-include mass_editing *.html
+recursive-include mass_editing *.ico
+recursive-include mass_editing *.js
+recursive-include mass_editing *.json
+recursive-include mass_editing *.md
+recursive-include mass_editing *.png
+recursive-include mass_editing *.py
+recursive-include mass_editing *.svg
+recursive-include mass_editing *.txt
+recursive-exclude mass_editing *.pyc
