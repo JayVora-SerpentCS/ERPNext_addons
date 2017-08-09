@@ -13,7 +13,7 @@ def search_link(doctype, txt, query=None, filters=None, page_length=20, searchfi
 # this is called by the search box
 @frappe.whitelist()
 def search_widget(doctype, txt, query=None, searchfield=None, start=0,
-    page_length=10, filters=None, filter_fields=None, as_dict=False):
+    page_length=100, filters=None, filter_fields=None, as_dict=False):
     if isinstance(filters, basestring):
         filters = json.loads(filters)
 
@@ -132,7 +132,6 @@ def update_doc_records_by_mass_editing(args=None):
     ignore_keys = ['cmd', 'selected_doc_records', 'doctype']
     if args and args.get('doctype', False) and args.get('selected_doc_records', False):
         for doc_id in eval(args['selected_doc_records']):
-        # doc_rec = frappe.get_doc(str(args['doctype']), str(doc_id))
             for field_name in args.keys():
                 # This code is add fields in args because some fields is not
                 # comes by default in args if fields value is not selected

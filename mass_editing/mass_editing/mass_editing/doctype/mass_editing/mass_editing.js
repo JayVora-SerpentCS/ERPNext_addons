@@ -5,7 +5,12 @@
 cur_frm.fields_dict["fields_ids"].grid.get_field("mass_doctype_field").get_query =
 function(doc) {
 	return {
-	    'filters': {'parent': doc.model_id},
+	    'filters': [
+	        ['DocField', 'fieldtype', 'not in',
+	        ['Table','Button', 'Column Break', 'Daynamic Link', 'Fold',
+	        'Heading', 'HTML', 'Image', 'Read Only', 'Section Break']],
+            ['DocField', 'parent', '=', doc.model_id]
+        ],
 	    'searchfield': 'fieldname'
 	}
 }
@@ -36,46 +41,7 @@ frappe.ui.form.on("Mass Editing line", {
 		    // If not field_name and label then set it to null
 			frappe.model.set_value(cdt, cdn, "field_label", null);
 			frappe.model.set_value(cdt, cdn, "field_name", null);
-			frappe.model.set_value(cdt, cdn, "field_name", null);
+			frappe.model.set_value(cdt, cdn, "field_type", null);
 		}
  	},
 });
-
-// Added button to pop up dialog when click on button
-//frappe.ui.form.on('Mass Editing', {
-//	refresh: function(frm) {
-//	    cur_frm.add_custom_button(__('Mass Editing Dialog Testing'),
-//					cur_frm.cscript['TESTING MASS DIALOG']);
-//	}
-//});
-
-// Created one test dialog to pop up it on button click
-//cur_frm.cscript['TESTING MASS DIALOG'] = function(){
-//	var dialog = new frappe.ui.Dialog({
-//		title: "Mass Editing Testing Dialog",
-//		fields: [
-//			{"fieldtype": "Text", "label": __("Reason for losing"), "fieldname": "reason",
-//				"reqd": 1 },
-//			{"fieldtype": "Button", "label": __("Update"), "fieldname": "update"},
-//		]
-//	});
-//	dialog.fields_dict.update.$input.click(function() {
-//		var args = dialog.get_values();
-//		if(!args) return;
-//		return cur_frm.call({
-//			method: "declare_mass_order_lost",
-//			doc: cur_frm.doc,
-//			args: args.reason,
-//			callback: function(r) {
-//				if(r.exc) {
-//					frappe.msgprint(__("There were errors."));
-//					return;
-//				}
-//				dialog.hide();
-//				cur_frm.refresh();
-//			},
-//			btn: this
-//		})
-//	});
-//	dialog.show();
-//}
